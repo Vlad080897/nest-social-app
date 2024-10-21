@@ -1,12 +1,11 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from '../services/app.service';
+import { Controller } from '@nestjs/common';
+import { DbService } from 'src/services/db.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly dbService: DbService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async onModuleInit() {
+    await this.dbService.configure();
   }
 }
